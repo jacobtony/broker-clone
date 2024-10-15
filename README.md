@@ -5,7 +5,7 @@ This API clones that of a broker with limited functionality( limit orders, marke
 New Orders could be created as bids(to buy) or asks(to sell). Valid bids/asks are matched against each other with best available price assured.
 
 ## Installation
-
+ 
 Use the package manager npm to install packages.
 
 ```bash

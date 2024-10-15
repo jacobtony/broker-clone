@@ -87,9 +87,13 @@ app.get( '/depth', ( req, res, next ) => {
     
 } )
 
-app.get( '/bidsAndAsks', ( req, res, next ) => {
-    res.json({ bids, asks }) 
-} )
+// app.get( '/bidsAndAsks', ( req, res, next ) => {
+//     res.json({ bids, asks }) 
+// } )
+
+// app.get( '/quote', (req, res, next) => {
+
+// } )
 
 app.get( '/balance/:userId', ( req, res, next )=>{
     const userId = req.params.userId;
