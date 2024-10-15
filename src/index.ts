@@ -24,13 +24,13 @@ const users: User[] = [{
     id: "1",
     balances: {
       [TICKER]: 10,
-      "USD": 50000
+      "INR": 50000
     }
   }, {
     id: "2",
     balances: {
       [TICKER]: 10,
-      "USD": 50000
+      "INR": 50000
     }
   }];
 
@@ -97,7 +97,7 @@ app.get( '/balance/:userId', ( req, res, next )=>{
     if( !user ){
         return res.json( {
             [TICKER]: 0,
-            'USD': 0
+            'INR': 0
         } )
     }
     res.json( {
@@ -118,15 +118,15 @@ function fillOrder( userId: string, orderType: string, price: number, quantity: 
     for( let orderEntry of orderSideToBeChecked ){
         if( orderEntry.price * orderTypeNumber <= price * orderTypeNumber ){
             if( orderEntry.quantity >= remainingQuantity ){
-                updateUserBalance( userId, { [TICKER]: orderTypeNumber * remainingQuantity, 'USD': orderTypeNumber * -1 * remainingQuantity * orderEntry.price} )
-                updateUserBalance( orderEntry.userId, { [TICKER]: -1 * orderTypeNumber * remainingQuantity, 'USD': orderTypeNumber * orderEntry.price * remainingQuantity } )
+                updateUserBalance( userId, { [TICKER]: orderTypeNumber * remainingQuantity, 'INR': orderTypeNumber * -1 * remainingQuantity * orderEntry.price} )
+                updateUserBalance( orderEntry.userId, { [TICKER]: -1 * orderTypeNumber * remainingQuantity, 'INR': orderTypeNumber * orderEntry.price * remainingQuantity } )
                 orderEntry.quantity -= remainingQuantity;
                 remainingQuantity = 0;
                 break;
             }else{
                 remainingQuantity -= orderEntry.quantity;
-                updateUserBalance( userId, { [TICKER]: orderTypeNumber * orderEntry.quantity, 'USD': orderTypeNumber * -1 * orderEntry.quantity * orderEntry.price} )
-                updateUserBalance( orderEntry.userId, { [TICKER]: -1 * orderTypeNumber * orderEntry.quantity, 'USD': orderTypeNumber * orderEntry.price * quantity } )
+                updateUserBalance( userId, { [TICKER]: orderTypeNumber * orderEntry.quantity, 'INR': orderTypeNumber * -1 * orderEntry.quantity * orderEntry.price} )
+                updateUserBalance( orderEntry.userId, { [TICKER]: -1 * orderTypeNumber * orderEntry.quantity, 'INR': orderTypeNumber * orderEntry.price * quantity } )
                 orderEntry.quantity = 0;
                 //orderSideToBeChecked.shift()
             }
@@ -147,7 +147,7 @@ function updateUserBalance( userId: string, balances: Balances ){
     if( user ){
         const newBalances = {
             [TICKER]: user.balances[TICKER] + balances[TICKER],
-            'USD': user.balances.USD + balances.USD,
+            'INR': user.balances.INR + balances.INR,
         }
         user.balances = newBalances;
     }
